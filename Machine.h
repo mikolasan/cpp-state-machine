@@ -11,7 +11,7 @@ class Machine {
 
 public:
   Machine(unsigned int _stock);
-  ~Machine();
+  ~Machine() = default;
   void sell(unsigned int quantity);
   void refill(unsigned int quantity);
   void damage();

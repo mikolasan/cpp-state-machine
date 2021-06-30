@@ -1,10 +1,6 @@
 // MachineStates.cpp
 #include "MachineStates.h"
-
-#include <exception>
 #include <stdexcept>
-
-AbstractState::~AbstractState() {}
 
 void AbstractState::setState(Machine &machine, AbstractState *state) {
   machine.state.reset(state);
@@ -23,8 +19,6 @@ void AbstractState::fix(Machine &machine) {
                         ? static_cast<AbstractState *>(new Normal())
                         : static_cast<AbstractState *>(new SoldOut()));
 };
-
-Normal::~Normal() {}
 
 void Normal::sell(Machine &machine, unsigned int quantity) {
   unsigned int currStock = machine.getStock();
@@ -48,8 +42,6 @@ void Normal::fix(Machine &machine) {
   throw std::runtime_error("If it ain't broke, don't fix it!");
 };
 
-SoldOut::~SoldOut() {}
-
 void SoldOut::sell(Machine &machine, unsigned int quantity) {
   throw std::runtime_error("Sold out!");
 }
@@ -62,8 +54,6 @@ void SoldOut::refill(Machine &machine, unsigned int quantity) {
 void SoldOut::fix(Machine &machine) {
   throw std::runtime_error("If it ain't broke, don't fix it!");
 };
-
-Broken::~Broken() {}
 
 void Broken::sell(Machine &machine, unsigned int quantity) {
   throw std::runtime_error("Machine is broken! Fix it before sell");

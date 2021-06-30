@@ -7,8 +7,6 @@ Machine::Machine(unsigned int _stock) : stock(_stock) {
                     : std::make_unique<SoldOut>();
 }
 
-Machine::~Machine() {}
-
 void Machine::sell(unsigned int quantity) { state->sell(*this, quantity); }
 
 void Machine::refill(unsigned int quantity) { state->refill(*this, quantity); }
