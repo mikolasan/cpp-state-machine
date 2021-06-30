@@ -1,12 +1,13 @@
 // MachineStates.cpp
 #include "MachineStates.h"
 
+#include <exception>
+#include <stdexcept>
+
 AbstractState::~AbstractState() {}
 
 void AbstractState::setState(Machine &machine, AbstractState *state) {
-  AbstractState *aux = machine.state;
-  machine.state = state;
-  delete aux;
+  machine.state.reset(state);
 }
 
 void AbstractState::updateStock(Machine &machine, unsigned int quantity) {

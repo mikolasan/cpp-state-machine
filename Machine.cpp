@@ -3,11 +3,11 @@
 #include "MachineStates.h"
 
 Machine::Machine(unsigned int _stock) : stock(_stock) {
-  state = stock > 0 ? static_cast<AbstractState *>(new Normal())
-                    : static_cast<AbstractState *>(new SoldOut());
+  state = stock > 0 ? std::unique_ptr<AbstractState>{std::make_unique<Normal>()}
+                    : std::make_unique<SoldOut>();
 }
 
-Machine::~Machine() { delete state; }
+Machine::~Machine() {}
 
 void Machine::sell(unsigned int quantity) { state->sell(*this, quantity); }
 
@@ -17,4 +17,4 @@ void Machine::damage() { state->damage(*this); }
 
 void Machine::fix() { state->fix(*this); }
 
-unsigned int Machine::getStock() { return stock; }
+unsigned int Machine::getStock() const { return stock; }

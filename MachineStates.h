@@ -2,8 +2,6 @@
 #pragma once
 
 #include "Machine.h"
-#include <exception>
-#include <stdexcept>
 
 class Machine;
 
